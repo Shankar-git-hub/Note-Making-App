@@ -13,11 +13,16 @@ const getLocalStorage = () => {
 
 addBtn.addEventListener("click", (e) => {
   let addTxt = document.getElementById("addTxt");
+  let addTitle = document.getElementById("addTitle");
   getLocalStorage();
-  noteObj.push(addTxt.value);
+  let valueObj = {
+    title: addTitle.value,
+    text: addTxt.value,
+  };
+  noteObj.push(valueObj);
   localStorage.setItem("notes", JSON.stringify(noteObj));
   addTxt.value = "";
-  console.log(noteObj);
+  addTitle.value = "";
   showNotes();
 });
 
@@ -29,8 +34,8 @@ const showNotes = function () {
   noteObj.forEach((element, index) => {
     htmlEl += `   <div class="noteCard my-3 mx-3 card" style="width: 18rem">
     <div class="card-body">
-      <h5 class="card-title">Note ${index + 1}</h5>
-      <p class="card-text">${element}</p>
+      <h5 class="card-title"> ${element.title}</h5>
+      <p class="card-text">${element.text}</p>
       <Button id="${index}" onClick ="deleteNote(this.id)" class="btn btn-primary">Delete Note</Button>
     </div>
   </div> `;
